@@ -26,9 +26,9 @@ There are a number of popover implementations, but none that met our requirement
 
 **Usage:** Call wowPopover on an element. For example:
 
-> $('#something').wowPopover({
->   content: $('#some_content') 
-> });
+    $('#something').wowPopover({
+      content: $('#some_content') 
+    });
 
 **Options**
 
