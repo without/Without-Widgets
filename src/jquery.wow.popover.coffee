@@ -16,9 +16,13 @@ $.fn.extend
   wowPopover: (options) ->
     # Default settings
     settings =
-      content: ''     # The content of the popover.
+      content: '...'     # The content of the popover.
       side_margin: 4  # The minimum distance in px between the left/right edge of the popover and the browser edge.
       debug: false    # Display log messages to the console when true.
+      onBeforeShow: null
+      onAfterShow: null
+      onBeforeHide: null
+      onAfterHide: null
 
     # Merge default settings with options.
     settings = $.extend settings, options
@@ -32,7 +36,14 @@ $.fn.extend
       console?.log msg if settings.debug
 
     modalHide = () ->
+      $elem = ($ '.wow-popover-open')
+      $content = ($ '#wow-popover-content')
+      options.onBeforeHide($elem, $content) if options.onBeforeHide
+      
       $overlay.remove()
+      $elem.removeClass('wow-popover-open')
+      options.onAfterHide($elem) if options.onAfterHide
+      
 
     # Calculates the position to place the popover
     calculate_position = (elem) ->
@@ -70,7 +81,15 @@ $.fn.extend
     # Do the popover.
     return @each ()->
       # First, listen for clicks on the object.
+      settings.content.remove()
       $(this).click (e) ->
+        $this = ($ this)
+        $content = $popover.find('#wow-popover-content')
+        $content.append(settings.content)
+        
+        # Add a class indicating that the object has initiated the popover
+        $this.addClass('wow-popover-open')
+        
         # Add the overlay
         ($ 'body').append $overlay.click -> 
           if not in_popover
@@ -81,14 +100,17 @@ $.fn.extend
         $overlay.append $popover.click ->
           in_popover = true
           log "test"
-        
-        $popover.find('#wow-popover-content').append(settings.content)
-        settings.content.show()
-        
+            
         # calculate the position of the popover-frame
-        calculate_position $(this)
-        
+        calculate_position $this
+            
+        options.onBeforeShow($this, $content) if options.onBeforeShow
+        settings.content.show()
+                
         # Show   
         $overlay.show()
+        options.onAfterShow($this, $content) if options.onAfterShow
+        
+        
         e.preventDefault()
         

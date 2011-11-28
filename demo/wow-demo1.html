@@ -20,7 +20,7 @@
     <a href="#" id="popover-test-2" class="popover-test" style="float:right;">Popover Test 2</a>
   </div>
   <div style="text-align: center;">
-    <a href="#" id="popover-test-3" class="popover-test">Popover Test 3</a>
+    <a href="#" id="popover-test-3" class="popover-testx">Popover Test 3</a>
     
   </div>
 
@@ -28,6 +28,9 @@
 
   <div class="popover-content" style="display:none;">
     This is a test.
+  </div>
+  <div class="popover-content-2" style="display:none;">
+    This is another <span class='clickme'>test</span>.
   </div>
 
 
@@ -40,7 +43,33 @@
           debug: true,
           margin: 15,
           content: $('.popover-content')
-        });
+      });
+      $('#popover-test-3').wowPopover({
+          debug: true,
+          margin: 15,
+          content: $('.popover-content-2'),
+          onAfterShow: function(elem, popover) {
+            alert(elem.html());
+            alert(popover.html());
+          },
+          onBeforeShow: function(elem, popover) {
+            alert(elem.html());
+            alert(popover.html());
+          },
+          onBeforeHide: function(elem, popover) {
+            alert(elem.html());
+            alert(popover.html());
+          },
+          onAfterHide: function(elem) {
+            alert(elem.html());
+          }
+          
+      });
+       
+      $('.clickme').click(function() {
+        alert('clickme!');
+      });
+        
     });
   </script>
 

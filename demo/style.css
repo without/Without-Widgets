@@ -82,3 +82,7 @@ h1 {
 h2 {
   font-size: 1.6em;
 }
+
+.wow-popover-open {
+  color: red;
+}
