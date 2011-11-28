@@ -14,6 +14,8 @@ Current widgets:
 
 * Popover implementation.
 
+**Note:** This really is still very early days, and you probably don't want to actually use this yet.
+
 License
 =======
 
