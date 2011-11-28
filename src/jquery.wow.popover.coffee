@@ -16,9 +16,9 @@ $.fn.extend
   wowPopover: (options) ->
     # Default settings
     settings =
-      content: true
-      option2: false
-      debug: false
+      content: ''     # The content of the popover.
+      side_margin: 4  # The minimum distance in px between the left/right edge of the popover and the browser edge.
+      debug: false    # Display log messages to the console when true.
 
     # Merge default settings with options.
     settings = $.extend settings, options
@@ -40,18 +40,18 @@ $.fn.extend
       elem_wid = elem.innerWidth()
       elem_hei = elem.innerHeight()
       popover_top = elem_offset.top + elem_hei + 11
-      popover_left = elem_offset.left + (elem_wid / 2) - (300 / 2)
+      popover_left = elem_offset.left + (elem_wid / 2) - (300 / 2) # 300 = magic width number; change!
       window_wid = $(window).width()
       
       adjusted = false;
-      if (popover_left < 4)
-        popover_left = 4;
+      if (popover_left < settings.side_margin)
+        popover_left = settings.side_margin;
         adjusted = true;
 
       # Make sure it's not off the right of the browser window
       right_pos = popover_left + $popover.innerWidth()
       if (right_pos > window_wid)
-        popover_left = popover_left - (right_pos - window_wid) - 4;
+        popover_left = popover_left - (right_pos - window_wid) - settings.side_margin; 
         adjusted = true;
 
       # position the popover
@@ -59,10 +59,10 @@ $.fn.extend
         top: popover_top
         left: popover_left
       if adjusted
-        if popover_left == 4
+        if popover_left == settings.side_margin
           ($ '#wow-popover-arrow').width(elem_wid)
         else
-          ($ '#wow-popover-arrow').width(elem_wid * 2 + 4 + 300)
+          ($ '#wow-popover-arrow').width(elem_wid * 2 + 300) # 300 = magic width number; change!
       else
         ($ '#wow-popover-arrow').width('100%')
       
