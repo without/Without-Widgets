@@ -49,19 +49,23 @@
           margin: 15,
           content: $('.popover-content-2'),
           onAfterShow: function(elem, popover) {
-            alert(elem.html());
-            alert(popover.html());
+            console.log('onAfterShow');
+            console.log(elem.html());
+            console.log(popover.html());
           },
           onBeforeShow: function(elem, popover) {
-            alert(elem.html());
-            alert(popover.html());
+            console.log('onBeforeShow');
+            console.log(elem.html());
+            console.log(popover.html());
           },
           onBeforeHide: function(elem, popover) {
-            alert(elem.html());
-            alert(popover.html());
+            console.log('onBeforeHide');
+            console.log(elem.html());
+            console.log(popover.html());
           },
           onAfterHide: function(elem) {
-            alert(elem.html());
+            console.log('onAfterHide');
+            console.log(elem.html());
           }
           
       });
