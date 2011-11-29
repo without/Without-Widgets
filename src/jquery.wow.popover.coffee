@@ -54,6 +54,8 @@ $.fn.extend
       popover_left = elem_offset.left + (elem_wid / 2) - (300 / 2) # 300 = magic width number; change!
       window_wid = $(window).width()
       
+      # adjusted indicates if we needed to move the position of the
+      # popover to accomodate the browser margins.
       adjusted = false;
       if (popover_left < settings.side_margin)
         popover_left = settings.side_margin;
